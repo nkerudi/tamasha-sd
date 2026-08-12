@@ -131,6 +131,89 @@
 .tab-panel.has-selection .place:not(.is-match) { opacity: 0.3; transform: scale(0.98); }
 .place { transition: opacity 0.25s, transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
 
+/* Team podium-history modal */
+.team-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(6, 6, 8, 0.88);
+  backdrop-filter: blur(10px);
+}
+.team-modal[hidden] { display: none; }
+.team-modal-card {
+  position: relative;
+  width: min(540px, 100%);
+  padding: 44px 38px 34px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 26px;
+  background:
+    radial-gradient(80% 55% at 50% 0%, rgba(230, 182, 82, 0.16), transparent),
+    var(--surface);
+  box-shadow: 0 35px 100px -30px #000;
+  animation: team-modal-in 0.24s ease-out;
+}
+@keyframes team-modal-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+}
+.team-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+}
+.team-modal-close:hover { color: var(--text); border-color: var(--border-strong); }
+.team-modal-close:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+.team-modal-mark {
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  color: #171109;
+  background: var(--grad-hot);
+  box-shadow: 0 15px 34px -15px rgba(230, 182, 82, 0.9);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.team-modal-card .section-tag { margin-bottom: 9px; }
+.team-modal-card h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+.team-modal-competition { margin: 9px 0 28px; color: var(--text-mute); }
+.team-medal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.team-medal-stat {
+  padding: 17px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.025);
+}
+.team-medal-stat span { display: block; font-size: 1.35rem; }
+.team-medal-stat strong { display: block; margin-top: 5px; font-size: 1.8rem; line-height: 1; }
+.team-medal-stat small {
+  display: block;
+  margin-top: 8px;
+  color: var(--text-mute);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.gold-stat strong { color: var(--magenta); }
+.silver-stat strong { color: #cdd1dc; }
+.bronze-stat strong { color: #d9955d; }
+.team-modal-total { margin: 22px 0 0; color: var(--text-dim); font-size: 0.9rem; }
+
 .js-archive .year-block { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .js-archive .year-block.is-visible { opacity: 1; transform: none; }
 
@@ -152,4 +235,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .js-archive .year-block { opacity: 1; transform: none; transition: none; }
+  .team-modal-card { animation: none; }
 }

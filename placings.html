@@ -214,6 +214,22 @@
 
   </main>
 
+  <div class="team-modal" role="dialog" aria-modal="true" aria-labelledby="team-modal-title" hidden>
+    <div class="team-modal-card">
+      <button class="team-modal-close" type="button" aria-label="Close team statistics">✕</button>
+      <div class="team-modal-mark" aria-hidden="true"></div>
+      <div class="section-tag">Podium history</div>
+      <h2 id="team-modal-title"></h2>
+      <p class="team-modal-competition"></p>
+      <div class="team-medal-grid">
+        <div class="team-medal-stat gold-stat"><span>🥇</span><strong data-first>0</strong><small>First</small></div>
+        <div class="team-medal-stat silver-stat"><span>🥈</span><strong data-second>0</strong><small>Second</small></div>
+        <div class="team-medal-stat bronze-stat"><span>🥉</span><strong data-third>0</strong><small>Third</small></div>
+      </div>
+      <p class="team-modal-total"></p>
+    </div>
+  </div>
+
   <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="container">

@@ -3,6 +3,10 @@
   var panels = document.querySelectorAll('.tab-panel');
   if (!panels.length) return;
 
+  var modal = document.querySelector('.team-modal');
+  var modalClose = modal.querySelector('.team-modal-close');
+  var modalOpener = null;
+
   function key(name) {
     return name.trim().toLowerCase().replace(/\s+/g, ' ');
   }
@@ -12,6 +16,50 @@
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
     return (words[0][0] + words[words.length - 1][0]).toUpperCase();
   }
+
+  function openTeamModal(panel, place, name) {
+    var counts = { gold: 0, silver: 0, bronze: 0 };
+    panel.querySelectorAll('.place').forEach(function (other) {
+      if (other.dataset.team !== place.dataset.team) return;
+      if (other.classList.contains('gold')) counts.gold += 1;
+      else if (other.classList.contains('silver')) counts.silver += 1;
+      else if (other.classList.contains('bronze')) counts.bronze += 1;
+    });
+
+    modalOpener = place;
+    modal.querySelector('.team-modal-mark').textContent = initials(name);
+    modal.querySelector('#team-modal-title').textContent = name;
+    modal.querySelector('.team-modal-competition').textContent =
+      panel.dataset.panel === 'tamasha' ? 'Tamasha · Bollywood-Fusion' : 'Sanedo · Raas-Garba';
+    modal.querySelector('[data-first]').textContent = counts.gold;
+    modal.querySelector('[data-second]').textContent = counts.silver;
+    modal.querySelector('[data-third]').textContent = counts.bronze;
+    var total = counts.gold + counts.silver + counts.bronze;
+    modal.querySelector('.team-modal-total').textContent =
+      total + (total === 1 ? ' podium finish in this competition' : ' podium finishes in this competition');
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+  }
+
+  function closeTeamModal() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (modalOpener) modalOpener.focus();
+  }
+
+  modalClose.addEventListener('click', closeTeamModal);
+  modal.addEventListener('click', function (event) {
+    if (event.target === modal) closeTeamModal();
+  });
+  document.addEventListener('keydown', function (event) {
+    if (modal.hidden) return;
+    if (event.key === 'Escape') closeTeamModal();
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      modalClose.focus();
+    }
+  });
 
   panels.forEach(function (panel) {
     var blocks = panel.querySelectorAll('.year-block');
@@ -42,6 +90,7 @@
         places.forEach(function (other) {
           other.classList.toggle('is-match', !alreadySelected && other.dataset.team === place.dataset.team);
         });
+        openTeamModal(panel, place, name);
       }
       place.addEventListener('click', select);
       place.addEventListener('keydown', function (event) {
