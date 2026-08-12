@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Tamasha SD</title>
+  <meta name="description" content="Get in touch with Tamasha SD — for teams, sponsorships, tickets, and general inquiries about San Diego's premier Bollywood-Fusion dance competition." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <span class="dot"></span> Tamasha <span class="sd">SD</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="placings.html">Placings</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ===== Page hero ===== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-tag">Say Hello</div>
+      <h1 class="gradient-text">Contact Us</h1>
+      <p>Questions about competing, sponsoring, tickets, or performing? Reach out — we read every message.</p>
+    </div>
+  </section>
+
+  <main class="container section" style="padding-top: 24px;">
+    <div class="contact-grid">
+      <!-- Info column -->
+      <div>
+        <div class="info-card">
+          <div class="ico">✉</div>
+          <div>
+            <h3>Email</h3>
+            <a href="mailto:hello@tamashasd.org">hello@tamashasd.org</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="ico">◎</div>
+          <div>
+            <h3>Instagram</h3>
+            <a href="https://instagram.com/tamashasd" target="_blank" rel="noopener noreferrer">@tamashasd</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="ico">★</div>
+          <div>
+            <h3>Sponsorships</h3>
+            <a href="mailto:sponsor@tamashasd.org">sponsor@tamashasd.org</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="ico">⚲</div>
+          <div>
+            <h3>Location</h3>
+            <p>San Diego, California</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form column -->
+      <div>
+        <div class="note">
+          <span>ⓘ</span>
+          <span><strong>Setup needed.</strong> This form needs a form-handling endpoint (e.g. Formspree, Getform, or a backend) before it can send. Replace the <code>action</code> URL below.</span>
+        </div>
+
+        <form class="form" action="https://formspree.io/f/your-form-id" method="POST">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="field">
+            <label for="topic">I'm reaching out about</label>
+            <select id="topic" name="topic">
+              <option>Competing / Team inquiry</option>
+              <option>Sponsorship</option>
+              <option>Tickets</option>
+              <option>Press / Media</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us more…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="justify-content: center;">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand"><span class="dot"></span> Tamasha <span class="sd">SD</span></div>
+          <p>San Diego's premier intercollegiate Bollywood-Fusion dance competition. Student-run and proudly non-profit.</p>
+          <div class="socials">
+            <a href="https://instagram.com/tamashasd" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+            <a href="https://youtube.com/@tamashasd" target="_blank" rel="noopener noreferrer" aria-label="YouTube">▷</a>
+            <a href="https://tiktok.com/@tamashasd" target="_blank" rel="noopener noreferrer" aria-label="TikTok">♪</a>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="placings.html">Placings</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:hello@tamashasd.org">hello@tamashasd.org</a></li>
+            <li><a href="https://instagram.com/tamashasd" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="contact.html">Sponsor Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Tamasha SD. All rights reserved.</span>
+        <span>Made with ♥ in San Diego</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
