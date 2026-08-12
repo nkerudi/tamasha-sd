@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="placings.css" />
 </head>
 <body>
 
@@ -33,7 +34,7 @@
     <div class="container">
       <div class="section-tag">Results</div>
       <h1 class="gradient-text">Placings</h1>
-      <p>Champions from every Tamasha and Sanedo competition.</p>
+      <p>A decade of champions, unforgettable sets, and teams that left their mark.</p>
     </div>
   </section>
 
@@ -44,11 +45,30 @@
         <button class="tab active" data-tab="tamasha" role="tab" aria-selected="true">Tamasha</button>
         <button class="tab" data-tab="sanedo" role="tab" aria-selected="false">Sanedo</button>
       </div>
+      <p class="archive-hint">Select a team to trace its podium history</p>
     </div>
 
     <!-- ===== Tamasha (Bollywood-Fusion) ===== -->
     <div class="tab-panel" data-panel="tamasha" role="tabpanel">
-      <p class="panel-meta">Bollywood-Fusion · 2016 – 2024</p>
+      <p class="panel-meta">Bollywood-Fusion · 2016 – 2026</p>
+
+      <div class="year-block">
+        <h3 class="year-label">2026 <span class="bar"></span></h3>
+        <div class="podium">
+          <div class="place gold"><span class="medal">🥇</span><span class="rank">First</span><div class="team">UCB Azaad</div></div>
+          <div class="place silver"><span class="medal">🥈</span><span class="rank">Second</span><div class="team">UCR Aag</div></div>
+          <div class="place bronze"><span class="medal">🥉</span><span class="rank">Third</span><div class="team">UCSC Kahaani</div></div>
+        </div>
+      </div>
+
+      <div class="year-block">
+        <h3 class="year-label">2025 <span class="bar"></span></h3>
+        <div class="podium">
+          <div class="place gold"><span class="medal">🥇</span><span class="rank">First</span><div class="team">RU Sapa</div></div>
+          <div class="place silver"><span class="medal">🥈</span><span class="rank">Second</span><div class="team">UCD Lashkara</div></div>
+          <div class="place bronze"><span class="medal">🥉</span><span class="rank">Third</span><div class="team">UCB Zahanat</div></div>
+        </div>
+      </div>
 
       <div class="year-block">
         <h3 class="year-label">2024 <span class="bar"></span></h3>
@@ -134,7 +154,16 @@
 
     <!-- ===== Sanedo (Raas-Garba) ===== -->
     <div class="tab-panel" data-panel="sanedo" role="tabpanel" hidden>
-      <p class="panel-meta">Raas-Garba · 2017 – 2024</p>
+      <p class="panel-meta">Raas-Garba · 2017 – 2025</p>
+
+      <div class="year-block">
+        <h3 class="year-label">2025 <span class="bar"></span></h3>
+        <div class="podium">
+          <div class="place gold"><span class="medal">🥇</span><span class="rank">First</span><div class="team">Northeastern Nakhraas</div></div>
+          <div class="place silver"><span class="medal">🥈</span><span class="rank">Second</span><div class="team">Uconn Thunderaas</div></div>
+          <div class="place bronze"><span class="medal">🥉</span><span class="rank">Third</span><div class="team">Texas Raas</div></div>
+        </div>
+      </div>
 
       <div class="year-block">
         <h3 class="year-label">2024 <span class="bar"></span></h3>
@@ -223,5 +252,6 @@
   </footer>
 
   <script src="nav.js"></script>
+  <script src="placings.js"></script>
 </body>
 </html>
