@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board — Tamasha SD</title>
+  <meta name="description" content="Meet the students who run Tamasha SD — directors, committee chairs, and interns, season by season." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="board.css" />
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <span class="dot"></span> Tamasha <span class="sd">SD</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="board.html" class="active">Board</a></li>
+        <li><a href="placings.html">Placings</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ===== Page hero ===== -->
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="gradient-text">The Board</h1>
+      <p>Every show is put on by students. These are the ones who put it on.</p>
+    </div>
+  </section>
+
+  <!-- ===== Board ===== -->
+  <section class="section" style="padding-top: 24px;">
+    <div class="container">
+      <div class="season-bar">
+        <div class="season-tabs" aria-label="Board season"></div>
+      </div>
+
+      <div data-board></div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="container">
+    <div class="cta">
+      <h2>Want in?</h2>
+      <p>Board applications open each spring. Interning is the usual way in — no experience needed, just show up.</p>
+      <a class="btn btn-primary" href="contact.html">Get In Touch →</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand"><span class="dot"></span> Tamasha <span class="sd">SD</span></div>
+          <p>San Diego's premier intercollegiate Bollywood-Fusion dance competition. Student-run and proudly non-profit.</p>
+          <div class="socials">
+            <a href="https://instagram.com/tamashasd" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+            <a href="https://youtube.com/@tamashasd" target="_blank" rel="noopener noreferrer" aria-label="YouTube">▷</a>
+            <a href="https://tiktok.com/@tamashasd" target="_blank" rel="noopener noreferrer" aria-label="TikTok">♪</a>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="board.html">Board</a></li>
+            <li><a href="placings.html">Placings</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:hello@tamashasd.org">hello@tamashasd.org</a></li>
+            <li><a href="https://instagram.com/tamashasd" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="contact.html">Sponsor Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Tamasha SD. All rights reserved.</span>
+        <span>Made with ♥ in San Diego</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Lightbox ===== -->
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Board photo" hidden>
+    <button class="lb-btn lb-close" type="button" aria-label="Close">✕</button>
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous person">‹</button>
+    <button class="lb-btn lb-next" type="button" aria-label="Next person">›</button>
+    <div>
+      <div class="lightbox-stage"><img alt="" /></div>
+      <div class="lightbox-meta">
+        <div class="lb-name"></div>
+        <div class="lb-role"></div>
+        <div class="lb-count"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="nav.js"></script>
+  <script src="board-data.js"></script>
+  <script src="board.js"></script>
+</body>
+</html>

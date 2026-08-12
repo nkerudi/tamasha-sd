@@ -1,0 +1,29 @@
+<!--
+  Board preview strip for the landing page.
+
+  Paste this section into index.html wherever it should sit (it reads well
+  just after the About split), then add these two lines to index.html:
+
+    <head>  ... <link rel="stylesheet" href="board.css" />
+    <body>  ... <script src="board-data.js"></script>
+            ... <script src="board-preview.js"></script>
+
+  It shows the six most recent directors and links through to board.html.
+  Nothing here is hardcoded — it reads the same generated board-data.js.
+-->
+
+<section class="section" id="board-preview">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-tag">Who Runs It</div>
+      <h2>The Board</h2>
+      <p>Tamasha is put on entirely by students. Meet this year's directors.</p>
+    </div>
+
+    <div class="board-strip" data-board-preview></div>
+
+    <div class="gallery-actions">
+      <a class="btn btn-primary" href="board.html">Meet the whole board →</a>
+    </div>
+  </div>
+</section>
