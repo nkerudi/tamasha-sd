@@ -20,17 +20,28 @@
   var tabs = document.querySelectorAll('.tab');
   if (!tabs.length) return;
 
+  function activate(target) {
+    var matched = false;
+    document.querySelectorAll('.tab').forEach(function (t) {
+      var on = t.getAttribute('data-tab') === target;
+      if (on) matched = true;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if (!matched) return;
+    document.querySelectorAll('.tab-panel').forEach(function (p) {
+      p.hidden = p.getAttribute('data-panel') !== target;
+    });
+  }
+
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
-      var target = tab.getAttribute('data-tab');
-      document.querySelectorAll('.tab').forEach(function (t) {
-        var on = t === tab;
-        t.classList.toggle('active', on);
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
-      document.querySelectorAll('.tab-panel').forEach(function (p) {
-        p.hidden = p.getAttribute('data-panel') !== target;
-      });
+      activate(tab.getAttribute('data-tab'));
     });
   });
+
+  // Deep-link support: e.g. placings.html#sanedo opens straight to that tab
+  // (used by the "View Placings and History" links on the homepage).
+  var hashTarget = location.hash.replace('#', '');
+  if (hashTarget) activate(hashTarget);
 })();

@@ -7,7 +7,7 @@
   <meta name="description" content="Tamasha SD is San Diego's premier intercollegiate Bollywood-Fusion dance competition, bringing together the best teams from across the nation for one unforgettable night on stage." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -23,7 +23,6 @@
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="board.html">Board</a></li>
         <li><a href="placings.html">Placings</a></li>
-        <li><a href="history.html">History</a></li>
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </div>
@@ -32,24 +31,12 @@
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="container">
-      <span class="eyebrow"><span class="pulse"></span> San Diego · Since 2016</span>
       <h1>Tamasha <span class="gradient-text">SD</span></h1>
       <p class="lead">
         San Diego's premier intercollegiate showcase of South Asian dance —
         home to the <strong>Tamasha</strong> Bollywood-Fusion competition and the
         <strong>Sanedo</strong> Raas-Garba competition.
       </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="placings.html">View Placings →</a>
-        <a class="btn btn-ghost" href="history.html">Our History</a>
-      </div>
-
-      <div class="stats">
-        <div class="stat"><div class="num gradient-text">2016</div><div class="label">Established</div></div>
-        <div class="stat"><div class="num gradient-text">2</div><div class="label">Competitions</div></div>
-        <div class="stat"><div class="num gradient-text">50+</div><div class="label">Teams Hosted</div></div>
-        <div class="stat"><div class="num gradient-text">100%</div><div class="label">Non-Profit</div></div>
-      </div>
     </div>
   </section>
 
@@ -64,11 +51,6 @@
           blending classical, hip-hop, bhangra, and contemporary — while
           <strong>Sanedo</strong> celebrates the tradition and energy of Raas-Garba.
         </p>
-        <ul class="feature-list">
-          <li><span class="ico">◆</span> Nationally-ranked, judged competitions with bid points</li>
-          <li><span class="ico">★</span> 100% student-run and proudly non-profit</li>
-          <li><span class="ico">♪</span> Proceeds supporting community and charitable causes</li>
-        </ul>
       </div>
       <div class="media">
         <img src="photos/board/25-26/full-board-1.jpg" alt="The Tamasha SD board" loading="lazy" />
@@ -76,49 +58,80 @@
     </div>
   </section>
 
-  <!-- ===== The Competition ===== -->
-  <section class="section" id="competition">
+  <!-- ===== Competition Showcase ===== -->
+  <section class="section" id="showcase">
     <div class="container">
-      <div class="section-head center">
-        <h2>Past Competitions</h2>
+      <div class="showcase-panel" data-panel="tamasha">
+        <div class="showcase-top">
+          <div class="showcase-rotator">
+            <img class="is-active" src="photos/tamasha_gallery/web/tamasha-rotate-1.webp" alt="Tamasha competition photo 1" />
+            <img src="photos/tamasha_gallery/web/tamasha-rotate-2.webp" alt="Tamasha competition photo 2" />
+            <img src="photos/tamasha_gallery/web/tamasha-rotate-3.webp" alt="Tamasha competition photo 3" />
+            <img src="photos/tamasha_gallery/web/tamasha-rotate-4.webp" alt="Tamasha competition photo 4" />
+            <img src="photos/tamasha_gallery/web/tamasha-rotate-5.webp" alt="Tamasha competition photo 5" />
+            <img src="photos/tamasha_gallery/web/tamasha-rotate-6.webp" alt="Tamasha competition photo 6" />
+            <img src="photos/tamasha_gallery/web/tamasha-rotate-7.webp" alt="Tamasha competition photo 7" />
+            <img src="photos/tamasha_gallery/web/tamasha-rotate-8.webp" alt="Tamasha competition photo 8" />
+          </div>
+          <div class="showcase-blurb">
+            <div class="section-tag">Bollywood-Fusion</div>
+            <h2 class="gradient-text">Tamasha</h2>
+            <p>
+              Tamasha is our flagship Bollywood-Fusion competition, bringing
+              collegiate teams from across the country to San Diego for a
+              night of high-energy choreography that blends classical Indian
+              dance, hip-hop, bhangra, and contemporary styles.
+            </p>
+            <a class="btn btn-primary" href="placings.html#tamasha">View Placings and History →</a>
+          </div>
+        </div>
+        <div class="showcase-static">
+          <img src="photos/tamasha_gallery/web/tamasha-static-1.webp" alt="Tamasha competition photo" loading="lazy" />
+          <img src="photos/tamasha_gallery/web/tamasha-static-2.webp" alt="Tamasha competition photo" loading="lazy" />
+          <img src="photos/tamasha_gallery/web/tamasha-static-3.webp" alt="Tamasha competition photo" loading="lazy" />
+          <img src="photos/tamasha_gallery/web/tamasha-static-4.webp" alt="Tamasha competition photo" loading="lazy" />
+        </div>
       </div>
-      <div class="grid-3">
-        <article class="card">
-          <div class="card-media"><img src="photos/board/25-26/full-board-2.jpg" alt="Tamasha SD 2026" loading="lazy" /></div>
-          <div class="card-body">
-            <span class="year">Tamasha 2026</span>
-            <h3>The Latest Edition</h3>
-            <p>Our biggest stage yet. Browse the full photo gallery from this year's show.</p>
-            <a class="card-link" href="https://drive.google.com/drive/folders/1d7tqEkwhht7PlG_diMgMvDaHWl1gT_ZR?usp=sharing" target="_blank" rel="noopener noreferrer">View Gallery →</a>
+
+      <div class="showcase-panel" data-panel="sanedo">
+        <div class="showcase-top">
+          <div class="showcase-rotator">
+            <img class="is-active" src="photos/sanedo_gallery/web/sanedo-rotate-1.webp" alt="Sanedo competition photo 1" />
+            <img src="photos/sanedo_gallery/web/sanedo-rotate-2.webp" alt="Sanedo competition photo 2" />
+            <img src="photos/sanedo_gallery/web/sanedo-rotate-3.webp" alt="Sanedo competition photo 3" />
+            <img src="photos/sanedo_gallery/web/sanedo-rotate-4.webp" alt="Sanedo competition photo 4" />
+            <img src="photos/sanedo_gallery/web/sanedo-rotate-5.webp" alt="Sanedo competition photo 5" />
+            <img src="photos/sanedo_gallery/web/sanedo-rotate-6.webp" alt="Sanedo competition photo 6" />
           </div>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="photos/board/24-25/full-board-1.jpg" alt="Tamasha SD 2025" loading="lazy" /></div>
-          <div class="card-body">
-            <span class="year">Tamasha 2025</span>
-            <h3>A Sold-Out Show</h3>
-            <p>An unforgettable night of fusion. See the professional photo set.</p>
-            <a class="card-link" href="https://photosbykisv.pixieset.com/tamashasd/" target="_blank" rel="noopener noreferrer">View Gallery →</a>
+          <div class="showcase-blurb">
+            <div class="section-tag">Raas-Garba</div>
+            <h2 class="gradient-text">Sanedo</h2>
+            <p>
+              Sanedo celebrates the tradition and energy of Raas-Garba,
+              uniting teams for a competition rooted in Gujarati folk dance —
+              vibrant footwork, dandiya sticks, and the spirit of Navratri
+              brought to the stage.
+            </p>
+            <a class="btn btn-primary" href="placings.html#sanedo">View Placings and History →</a>
           </div>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="photos/board/24-25/full-board-2.jpg" alt="Tamasha SD 2024" loading="lazy" /></div>
-          <div class="card-body">
-            <span class="year">Tamasha 2024</span>
-            <h3>Where It Began</h3>
-            <p>The inaugural competition that started it all. Revisit the debut.</p>
-            <a class="card-link" href="https://tamashasd2024.rgbtv.org/" target="_blank" rel="noopener noreferrer">View Gallery →</a>
-          </div>
-        </article>
+        </div>
+        <div class="showcase-static">
+          <img src="photos/sanedo_gallery/web/sanedo-static-1.webp" alt="Sanedo competition photo" loading="lazy" />
+          <img src="photos/sanedo_gallery/web/sanedo-static-2.webp" alt="Sanedo competition photo" loading="lazy" />
+          <img src="photos/sanedo_gallery/web/sanedo-static-3.webp" alt="Sanedo competition photo" loading="lazy" />
+        </div>
       </div>
     </div>
   </section>
+
+
+
 
   <!-- ===== CTA ===== -->
   <section class="container">
     <div class="cta">
       <h2>Get Involved</h2>
-      <p>Interested in competing, sponsoring, or performing? We'd love to hear from you.</p>
+      <p>Interested in sponsoring or competing? We'd love to hear from you.</p>
       <a class="btn btn-primary" href="contact.html">Get In Touch →</a>
     </div>
   </section>
@@ -142,7 +155,6 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="board.html">Board</a></li>
             <li><a href="placings.html">Placings</a></li>
-            <li><a href="history.html">History</a></li>
             <li><a href="contact.html">Contact Us</a></li>
           </ul>
         </div>
@@ -162,6 +174,7 @@
     </div>
   </footer>
 
+  <script src="showcase.js"></script>
   <script src="nav.js"></script>
 </body>
 </html>

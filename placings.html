@@ -7,9 +7,9 @@
   <meta name="description" content="Competition winners from every Tamasha SD (Bollywood-Fusion) and Sanedo (Raas-Garba) competition." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="placings.css" />
+  <link rel="stylesheet" href="podium.css" />
 </head>
 <body>
 
@@ -24,7 +24,6 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="board.html">Board</a></li>
         <li><a href="placings.html" class="active">Placings</a></li>
-        <li><a href="history.html">History</a></li>
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </div>
@@ -33,9 +32,8 @@
   <!-- ===== Page hero ===== -->
   <section class="page-hero">
     <div class="container">
-      <div class="section-tag">Results</div>
-      <h1 class="gradient-text">Placings</h1>
-      <p>A decade of champions, unforgettable sets, and teams that left their mark.</p>
+      <h1 class="gradient-text">Placings & History</h1>
+      <p>Past Tamasha and Sanedo competitions and placings.</p>
     </div>
   </section>
 
@@ -46,13 +44,29 @@
         <button class="tab active" data-tab="tamasha" role="tab" aria-selected="true">Tamasha</button>
         <button class="tab" data-tab="sanedo" role="tab" aria-selected="false">Sanedo</button>
       </div>
-      <p class="archive-hint">Select a team to trace its podium history</p>
     </div>
 
     <!-- ===== Tamasha (Bollywood-Fusion) ===== -->
     <div class="tab-panel" data-panel="tamasha" role="tabpanel">
-      <p class="panel-meta">Bollywood-Fusion · 2016 – 2026</p>
+      <p class="panel-meta">2016 – 2026</p>
 
+      <div class="spotlight">
+        <h3 class="spotlight-heading">Tamasha History and Placings</h3>
+
+        <div class="spotlight-carousel showcase-rotator">
+          <img class="is-active" src="photos/tamasha_gallery/web/tamasha-rotate-1.webp" alt="Tamasha competition photo" />
+          <img src="photos/tamasha_gallery/web/tamasha-rotate-2.webp" alt="Tamasha competition photo" />
+          <img src="photos/tamasha_gallery/web/tamasha-rotate-3.webp" alt="Tamasha competition photo" />
+          <img src="photos/tamasha_gallery/web/tamasha-rotate-4.webp" alt="Tamasha competition photo" />
+          <img src="photos/tamasha_gallery/web/tamasha-rotate-5.webp" alt="Tamasha competition photo" />
+          <img src="photos/tamasha_gallery/web/tamasha-rotate-6.webp" alt="Tamasha competition photo" />
+          <img src="photos/tamasha_gallery/web/tamasha-rotate-7.webp" alt="Tamasha competition photo" />
+          <img src="photos/tamasha_gallery/web/tamasha-rotate-8.webp" alt="Tamasha competition photo" />
+        </div>
+      </div>
+
+      <h3 class="timeline-heading">Competition Timeline</h3>
+      <div class="timeline-scroller">
       <div class="year-block">
         <h3 class="year-label">2026 <span class="bar"></span></h3>
         <div class="podium">
@@ -151,12 +165,28 @@
           <div class="place bronze"><span class="medal">🥉</span><span class="rank">Third</span><div class="team">UCD Lashkara</div></div>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- ===== Sanedo (Raas-Garba) ===== -->
     <div class="tab-panel" data-panel="sanedo" role="tabpanel" hidden>
-      <p class="panel-meta">Raas-Garba · 2017 – 2025</p>
+      <p class="panel-meta">2017 – 2025</p>
 
+      <div class="spotlight">
+        <h3 class="spotlight-heading">Sanedo History and Placings</h3>
+
+        <div class="spotlight-carousel showcase-rotator">
+          <img class="is-active" src="photos/sanedo_gallery/web/sanedo-rotate-1.webp" alt="Sanedo competition photo" />
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-2.webp" alt="Sanedo competition photo" />
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-3.webp" alt="Sanedo competition photo" />
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-4.webp" alt="Sanedo competition photo" />
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-5.webp" alt="Sanedo competition photo" />
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-6.webp" alt="Sanedo competition photo" />
+        </div>
+      </div>
+
+      <h3 class="timeline-heading">Competition Timeline</h3>
+      <div class="timeline-scroller">
       <div class="year-block">
         <h3 class="year-label">2025 <span class="bar"></span></h3>
         <div class="podium">
@@ -210,6 +240,7 @@
           <div class="place bronze"><span class="medal">🥉</span><span class="rank">Third</span><div class="team">UNC Tar Heel Raas</div><div class="school">1 RAS bid point</div></div>
         </div>
       </div>
+      </div>
     </div>
 
   </main>
@@ -249,7 +280,6 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="board.html">Board</a></li>
             <li><a href="placings.html">Placings</a></li>
-            <li><a href="history.html">History</a></li>
             <li><a href="contact.html">Contact Us</a></li>
           </ul>
         </div>
@@ -270,6 +300,6 @@
   </footer>
 
   <script src="nav.js"></script>
-  <script src="placings.js"></script>
+  <script src="podium.js"></script>
 </body>
 </html>
