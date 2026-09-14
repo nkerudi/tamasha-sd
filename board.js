@@ -11,7 +11,19 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Three tiers, in the order the board itself is structured.
+  // How long each board photo stays up before the next fades in.
+  var HERO_INTERVAL = 3000;
+
+  // Interns don't get their own roster cards right now. Flip this to true to
+  // bring them back — their photos are still in the repo either way, so it
+  // costs nothing to switch.
+  var SHOW_INTERNS = false;
+
+  // Two tiers: the directors, then everyone else. When interns are shown they
+  // sit in the main grid with the chairs rather than in a section of their
+  // own, sorting to the end because board-data.js orders by committee.
+  var TEAM_HEADING = SHOW_INTERNS ? 'Committee chairs & interns' : 'Committee chairs';
+
   var TIERS = [
     {
       title: 'Directors',
@@ -20,12 +32,8 @@
       }
     },
     {
-      title: 'Committee chairs',
-      test: function (m) { return m.roleSlug !== 'intern'; }
-    },
-    {
-      title: 'Interns',
-      test: function (m) { return m.roleSlug === 'intern'; }
+      title: TEAM_HEADING,
+      test: function () { return true; }
     }
   ];
 
@@ -209,22 +217,59 @@
       var picker = el('div', 'group-picker');
       picker.setAttribute('role', 'group');
       picker.setAttribute('aria-label', 'Choose a board photo');
+
+      var shown = 0;
+      var timer = null;
+
+      function show(i) {
+        shown = i;
+        imgs.forEach(function (other, j) {
+          other.classList.toggle('is-shown', i === j);
+        });
+        picker.querySelectorAll('.group-dot').forEach(function (d, j) {
+          d.setAttribute('aria-pressed', i === j ? 'true' : 'false');
+        });
+      }
+
+      function start() {
+        if (reduceMotion || timer) return;
+        timer = window.setInterval(function () {
+          show((shown + 1) % imgs.length);
+        }, HERO_INTERVAL);
+      }
+
+      function stop() {
+        window.clearInterval(timer);
+        timer = null;
+      }
+
       imgs.forEach(function (im, i) {
         var dot = el('button', 'group-dot');
         dot.type = 'button';
         dot.setAttribute('aria-label', 'Board photo ' + (i + 1));
         dot.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
         dot.addEventListener('click', function () {
-          imgs.forEach(function (other, j) {
-            other.classList.toggle('is-shown', i === j);
-          });
-          picker.querySelectorAll('.group-dot').forEach(function (d, j) {
-            d.setAttribute('aria-pressed', i === j ? 'true' : 'false');
-          });
+          show(i);
+          // Picking a photo by hand restarts the clock, so the one you
+          // chose gets a full turn on screen.
+          stop();
+          start();
         });
         picker.appendChild(dot);
       });
       wrap.appendChild(picker);
+
+      // Pause while someone is looking at or interacting with the photo,
+      // and whenever the tab is in the background.
+      wrap.addEventListener('mouseenter', stop);
+      wrap.addEventListener('mouseleave', start);
+      wrap.addEventListener('focusin', stop);
+      wrap.addEventListener('focusout', start);
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop(); else start();
+      });
+
+      start();
     }
     return wrap;
   }
@@ -247,7 +292,9 @@
       return;
     }
 
-    var remaining = season.members.slice();
+    var remaining = season.members.filter(function (m) {
+      return SHOW_INTERNS || m.roleSlug !== 'intern';
+    });
     var order = [];
     TIERS.forEach(function (tier) {
       var picked = remaining.filter(tier.test);

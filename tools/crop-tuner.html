@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!--
+  Tamasha SD — board photo crop tuner
+
+  A local tool for framing the board headshots by hand.
+
+  How to use it:
+    1. Open this file with Live Server (right-click > Open with Live Server).
+    2. Drag a photo to move it inside the frame. Use the slider to zoom.
+    3. When every photo looks right, hit "Copy JSON".
+    4. Paste into tools/crop-overrides.json.
+    5. Run: python3 tools/build-board-photos.py --force
+
+  Nothing here ships to the website — it's a workbench.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crop tuner — Tamasha SD board</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf6f3;
+      --surface: #fff;
+      --border: rgba(60, 40, 40, 0.14);
+      --text: #2e2624;
+      --dim: #6f645f;
+      --accent: #b8657f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 28px;
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    h1 { font-size: 1.4rem; margin: 0 0 4px; }
+    .sub { color: var(--dim); font-size: 0.9rem; margin: 0 0 22px; }
+
+    .bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+    button, select {
+      font: inherit; padding: 9px 16px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); cursor: pointer;
+    }
+    button.primary { background: var(--accent); color: #fff; border-color: transparent; }
+    button:disabled { opacity: 0.4; cursor: default; }
+    .status { color: var(--dim); font-size: 0.85rem; }
+
+    .layout { display: grid; grid-template-columns: 360px 1fr; gap: 28px; align-items: start; }
+
+    /* ---- Editor ---- */
+    .stage {
+      width: 330px; aspect-ratio: 3 / 4;
+      border-radius: 12px; overflow: hidden; position: relative;
+      border: 1px solid var(--border); background: #ddd;
+      cursor: grab; user-select: none;
+    }
+    .stage.dragging { cursor: grabbing; }
+    .stage img { position: absolute; transform-origin: 0 0; pointer-events: none; }
+    .stage::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+    }
+    .who { margin: 14px 0 6px; font-weight: 600; }
+    .role { color: var(--dim); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .zoom { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+    .zoom input { flex: 1; }
+    .hint { font-size: 0.8rem; color: var(--dim); margin-top: 10px; line-height: 1.5; }
+    .edited { color: var(--accent); font-weight: 500; }
+
+    /* ---- Contact sheet ---- */
+    .sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+    .thumb {
+      padding: 0; border: none; background: none; cursor: pointer; text-align: left;
+    }
+    .thumb .box {
+      position: relative; aspect-ratio: 3 / 4; border-radius: 8px;
+      overflow: hidden; border: 2px solid transparent; background: #ddd;
+    }
+    .thumb.sel .box { border-color: var(--accent); }
+    .thumb.done .box { box-shadow: 0 0 0 2px rgba(184,101,127,0.3); }
+    .thumb img { position: absolute; transform-origin: 0 0; }
+    .thumb .nm { font-size: 0.72rem; margin-top: 5px; color: var(--dim); line-height: 1.3; }
+  </style>
+</head>
+<body>
+
+<h1>Board photo crop tuner</h1>
+<p class="sub">Drag to reposition, slide to zoom. Opens with your saved crops already loaded, so you can keep tweaking across sessions.</p>
+
+<div class="bar">
+  <select id="season"></select>
+  <button id="prev">← Prev</button>
+  <button id="next">Next →</button>
+  <button id="reset">Reset this photo</button>
+  <button id="copy" class="primary">Copy JSON</button>
+  <span class="status" id="status"></span>
+</div>
+
+<div class="layout">
+  <div>
+    <div class="stage" id="stage"><img id="stageImg" alt="" /></div>
+    <div class="who" id="who"></div>
+    <div class="role" id="role"></div>
+    <div class="zoom">
+      <label for="zoom">Zoom</label>
+      <input type="range" id="zoom" min="100" max="320" value="100" />
+      <span id="zoomVal" style="width:3.5em">1.00×</span>
+    </div>
+    <p class="hint">
+      Zoom 1.00× is the widest crop the photo allows — you can't zoom out past
+      the edge of the original. Arrow keys nudge; hold Shift for bigger steps.
+    </p>
+  </div>
+
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<script src="../board-data.js"></script>
+<script>
+(function () {
+  var seasons = window.TAMASHA_BOARD || [];
+  if (!seasons.length) {
+    document.body.innerHTML = '<p>Could not load board-data.js. Open this file with Live Server from the repo root.</p>';
+    return;
+  }
+
+  var TARGET = 3 / 4;          // card aspect ratio
+  var STAGE_W = 330;
+  var edits = {};              // "25-26/name-slug" -> {cx, cy, zoom}
+  var seasonIdx = 0;
+  var idx = 0;
+
+  var el = function (id) { return document.getElementById(id); };
+  var stage = el('stage'), stageImg = el('stageImg');
+
+  function people() { return seasons[seasonIdx].members; }
+  function current() { return people()[idx]; }
+
+  // The key the Python script matches on: season/name-slug, taken straight
+  // from the generated card filename so the two can never drift apart.
+  function keyFor(m) {
+    // photos/board/<season>/web/<slug>-card.webp
+    var parts = m.card.split('/');
+    var season = parts[parts.length - 3];
+    var slug = parts[parts.length - 1].replace(/-card\.webp$/, '');
+    return season + '/' + slug;
+  }
+
+  function stateFor(m) {
+    return edits[keyFor(m)] || { cx: 0.5, cy: 0.5, zoom: 1 };
+  }
+
+  // Given the image's natural size and a state, work out the crop rectangle
+  // in image pixels. Mirrors the maths in build-board-photos.py.
+  function cropRect(natW, natH, st) {
+    var cw, ch;
+    if (natW / natH > TARGET) { ch = natH; cw = natH * TARGET; }
+    else { cw = natW; ch = natW / TARGET; }
+    cw /= st.zoom; ch /= st.zoom;
+    var left = st.cx * natW - cw / 2;
+    var top = st.cy * natH - ch / 2;
+    left = Math.max(0, Math.min(left, natW - cw));
+    top = Math.max(0, Math.min(top, natH - ch));
+    return { left: left, top: top, w: cw, h: ch };
+  }
+
+  function paint(imgEl, boxW, natW, natH, st) {
+    var r = cropRect(natW, natH, st);
+    var k = boxW / r.w;
+    imgEl.style.width = (natW * k) + 'px';
+    imgEl.style.height = (natH * k) + 'px';
+    imgEl.style.left = (-r.left * k) + 'px';
+    imgEl.style.top = (-r.top * k) + 'px';
+  }
+
+  function renderStage() {
+    var m = current();
+    var st = stateFor(m);
+    el('who').textContent = m.name;
+    el('role').textContent = m.role;
+    el('zoom').value = Math.round(st.zoom * 100);
+    el('zoomVal').textContent = st.zoom.toFixed(2) + '\u00d7';
+
+    stageImg.onload = function () {
+      paint(stageImg, STAGE_W, stageImg.naturalWidth, stageImg.naturalHeight, stateFor(current()));
+    };
+    stageImg.src = '../' + m.full;
+    if (stageImg.complete && stageImg.naturalWidth) stageImg.onload();
+
+    document.querySelectorAll('.thumb').forEach(function (t, i) {
+      t.classList.toggle('sel', i === idx);
+    });
+    updateStatus();
+  }
+
+  function updateStatus() {
+    var n = Object.keys(edits).length;
+    el('status').textContent = n
+      ? n + ' photo' + (n === 1 ? '' : 's') + ' adjusted'
+      : 'no changes yet';
+    el('status').className = 'status' + (n ? ' edited' : '');
+  }
+
+  function commit(st) {
+    var m = current();
+    var k = keyFor(m);
+    if (st.cx === 0.5 && st.cy === 0.5 && st.zoom === 1) delete edits[k];
+    else edits[k] = st;
+
+    var thumb = document.querySelectorAll('.thumb')[idx];
+    thumb.classList.toggle('done', !!edits[k]);
+    var ti = thumb.querySelector('img');
+    if (ti.naturalWidth) paint(ti, thumb.querySelector('.box').clientWidth,
+                               ti.naturalWidth, ti.naturalHeight, stateFor(m));
+    updateStatus();
+  }
+
+  function buildSheet() {
+    var sheet = el('sheet');
+    sheet.innerHTML = '';
+    people().forEach(function (m, i) {
+      var b = document.createElement('button');
+      b.className = 'thumb';
+      b.type = 'button';
+      var box = document.createElement('div');
+      box.className = 'box';
+      var im = new Image();
+      im.src = '../' + m.full;
+      im.onload = function () {
+        paint(im, box.clientWidth, im.naturalWidth, im.naturalHeight, stateFor(m));
+      };
+      box.appendChild(im);
+      var nm = document.createElement('div');
+      nm.className = 'nm';
+      nm.textContent = m.name;
+      b.appendChild(box); b.appendChild(nm);
+      b.addEventListener('click', function () { idx = i; renderStage(); });
+      sheet.appendChild(b);
+    });
+  }
+
+  // ---- Dragging ----
+  var drag = null;
+  stage.addEventListener('pointerdown', function (e) {
+    var st = stateFor(current());
+    drag = { x: e.clientX, y: e.clientY, cx: st.cx, cy: st.cy, zoom: st.zoom };
+    stage.classList.add('dragging');
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var natW = stageImg.naturalWidth, natH = stageImg.naturalHeight;
+    var r = cropRect(natW, natH, drag);
+    var k = STAGE_W / r.w;
+    var st = {
+      cx: drag.cx - (e.clientX - drag.x) / k / natW,
+      cy: drag.cy - (e.clientY - drag.y) / k / natH,
+      zoom: drag.zoom
+    };
+    st.cx = Math.max(0, Math.min(1, st.cx));
+    st.cy = Math.max(0, Math.min(1, st.cy));
+    commit(st);
+    paint(stageImg, STAGE_W, natW, natH, st);
+  });
+  stage.addEventListener('pointerup', function () { drag = null; stage.classList.remove('dragging'); });
+
+  el('zoom').addEventListener('input', function () {
+    var st = stateFor(current());
+    st = { cx: st.cx, cy: st.cy, zoom: this.value / 100 };
+    el('zoomVal').textContent = st.zoom.toFixed(2) + '\u00d7';
+    commit(st);
+    paint(stageImg, STAGE_W, stageImg.naturalWidth, stageImg.naturalHeight, st);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    var step = e.shiftKey ? 0.02 : 0.005;
+    var st = stateFor(current());
+    st = { cx: st.cx, cy: st.cy, zoom: st.zoom };
+    if (e.key === 'ArrowLeft') st.cx -= step;
+    else if (e.key === 'ArrowRight') st.cx += step;
+    else if (e.key === 'ArrowUp') st.cy -= step;
+    else if (e.key === 'ArrowDown') st.cy += step;
+    else return;
+    e.preventDefault();
+    commit(st);
+    paint(stageImg, STAGE_W, stageImg.naturalWidth, stageImg.naturalHeight, st);
+  });
+
+  el('prev').addEventListener('click', function () {
+    idx = (idx - 1 + people().length) % people().length; renderStage();
+  });
+  el('next').addEventListener('click', function () {
+    idx = (idx + 1) % people().length; renderStage();
+  });
+  el('reset').addEventListener('click', function () {
+    commit({ cx: 0.5, cy: 0.5, zoom: 1 });
+    renderStage();
+  });
+
+  el('copy').addEventListener('click', function () {
+    var out = {
+      _comment: "Generated by tools/crop-tuner.html. cx/cy are the crop centre as a fraction of the image; zoom > 1 tightens. Re-run: python3 tools/build-board-photos.py --force"
+    };
+    Object.keys(edits).sort().forEach(function (k) {
+      out[k] = {
+        cx: +edits[k].cx.toFixed(4),
+        cy: +edits[k].cy.toFixed(4),
+        zoom: +edits[k].zoom.toFixed(3)
+      };
+    });
+    var text = JSON.stringify(out, null, 2);
+    navigator.clipboard.writeText(text).then(function () {
+      el('copy').textContent = 'Copied!';
+      setTimeout(function () { el('copy').textContent = 'Copy JSON'; }, 1400);
+    }, function () {
+      window.prompt('Copy this:', text);
+    });
+  });
+
+  var sel = el('season');
+  seasons.forEach(function (s, i) {
+    var o = document.createElement('option');
+    o.value = i; o.textContent = '20' + s.year.split('-')[0] + '\u2013' + s.year.split('-')[1];
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change', function () {
+    seasonIdx = +this.value; idx = 0; buildSheet(); renderStage();
+    document.querySelectorAll('.thumb').forEach(function (t, i) {
+      t.classList.toggle('done', !!edits[keyFor(people()[i])]);
+    });
+  });
+
+  // Load whatever is already in crop-overrides.json so a second pass starts
+  // from your last set of crops instead of from scratch. Without this, tuning
+  // two photos and pasting the result would wipe every earlier adjustment.
+  fetch('crop-overrides.json?t=' + Date.now())
+    .then(function (r) { return r.ok ? r.json() : {}; })
+    .then(function (saved) {
+      Object.keys(saved).forEach(function (k) {
+        if (k.charAt(0) === '_') return;
+        var v = saved[k];
+        edits[k] = {
+          cx: typeof v.cx === 'number' ? v.cx : 0.5,
+          cy: typeof v.cy === 'number' ? v.cy : 0.5,
+          zoom: typeof v.zoom === 'number' ? v.zoom : 1
+        };
+      });
+    })
+    .catch(function () { /* no file yet — start clean */ })
+    .then(function () {
+      buildSheet();
+      renderStage();
+      document.querySelectorAll('.thumb').forEach(function (t, i) {
+        t.classList.toggle('done', !!edits[keyFor(people()[i])]);
+      });
+    });
+})();
+</script>
+</body>
+</html>

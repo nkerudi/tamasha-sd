@@ -48,6 +48,10 @@
   background: var(--surface);
 }
 .group-shot img {
+  /* All the board photos sit stacked in the same spot; only the one with
+     .is-shown is visible, so they can cross-fade into each other. */
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;

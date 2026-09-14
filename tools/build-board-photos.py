@@ -139,12 +139,21 @@ X_BAND = (0.33, 0.67)
 
 
 def cascade():
+    """The Haar face detector, or None if this OpenCV build lacks it.
+
+    OpenCV 5 dropped CascadeClassifier from the headless package. The focus
+    pass below finds the subject on its own, so a missing detector costs us
+    the vertical anchor but nothing else — the script still runs.
+    """
     global _cascade
     if _cascade is None:
-        base = Path(cv2.data.haarcascades)
-        _cascade = cv2.CascadeClassifier(
-            str(base / "haarcascade_frontalface_default.xml"))
-    return _cascade
+        if not hasattr(cv2, "CascadeClassifier"):
+            _cascade = False
+        else:
+            base = Path(cv2.data.haarcascades)
+            _cascade = cv2.CascadeClassifier(
+                str(base / "haarcascade_frontalface_default.xml"))
+    return _cascade or None
 
 
 def focus_centre(gray):
@@ -189,8 +198,11 @@ def find_subject(img_path: Path):
 
     # A face gives us a vertical anchor that edge energy can't. Only believe
     # detections that land near where the focus pass already points.
-    faces = cascade().detectMultiScale(cv2.equalizeHist(gray), scaleFactor=1.08,
-                                       minNeighbors=7, minSize=(36, 36))
+    detector = cascade()
+    faces = []
+    if detector is not None:
+        faces = detector.detectMultiScale(cv2.equalizeHist(gray), scaleFactor=1.08,
+                                          minNeighbors=7, minSize=(36, 36))
     best, note = None, "focus"
     for (x, y, fw, fh) in faces:
         fcx = (x + fw / 2) / iw
@@ -247,21 +259,29 @@ def crop_card(src: Path, dest: Path):
         crop_w = w
         crop_h = int(round(w / target))
 
-    key = f"{src.parent.name}/{src.name}"
-    ov = overrides().get(key)
+    # Look up by "<season>/<name-slug>" (what tools/crop-tuner.html writes)
+    # first, then by the full "<season>/<filename>.jpg" form for older entries.
+    season = src.parent.name
+    name_slug = src.stem.split("_", 1)[0]
+    ov = (overrides().get(f"{season}/{name_slug}")
+          or overrides().get(f"{season}/{src.name}"))
     if ov:
         cxf = ov.get("cx", 0.5)
-        cyf = ov.get("cy", 0.28)
+        cyf = ov.get("cy", 0.5)
         note = "override"
         zoom = float(ov.get("zoom", 1))
         if zoom > 1:
             crop_w = max(8, int(round(crop_w / zoom)))
             crop_h = max(8, int(round(crop_h / zoom)))
+        # An override gives the centre of the crop box directly.
+        left = cxf * w - crop_w / 2
+        top = cyf * h - crop_h / 2
     else:
         cxf, cyf, note = find_subject(src)
-
-    left = cxf * w - crop_w / 2
-    top = cyf * h - crop_h * FACE_Y_TARGET
+        # The automatic pass reports a face position, not a crop centre, so
+        # the face is placed FACE_Y_TARGET of the way down the frame.
+        left = cxf * w - crop_w / 2
+        top = cyf * h - crop_h * FACE_Y_TARGET
 
     left = int(round(max(0, min(left, w - crop_w))))
     top = int(round(max(0, min(top, h - crop_h))))

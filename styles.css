@@ -276,7 +276,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  aspect-ratio: 4 / 3;
+  /* Matches the board photo's own 16:9 shape — a 4:3 frame cropped the
+     people standing at either end. */
+  aspect-ratio: 16 / 9;
 }
 .split .media img { width: 100%; height: 100%; object-fit: cover; }
 
