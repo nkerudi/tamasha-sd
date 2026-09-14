@@ -65,7 +65,25 @@ What the script actually does:
 3. The result is clamped to the middle third of the frame, since these
    are posed portraits and the subject is never at the edge.
 
-### Fixing a bad crop
+### Fixing a bad crop — the easy way
+
+Open `tools/crop-tuner.html` with Live Server. It shows every board photo in
+the same 3:4 frame the website uses. Drag a photo to reposition it, use the
+slider to zoom, then hit **Copy JSON** and paste the result into
+`tools/crop-overrides.json`. Finally:
+
+```bash
+python3 tools/build-board-photos.py --force
+```
+
+Only photos you actually moved end up in the file — everything else keeps
+using the automatic crop.
+
+Zoom 1.00x is the widest crop a photo allows. If a photo still looks too
+tight at 1.00x, the original is already a close headshot and there is nothing
+further to zoom out to; it needs a different source photo.
+
+### Fixing a bad crop — by hand
 
 Some photos defeat all of that — Bhagya's is a night shot where he's
 small and off to one side. For those, add an entry to
@@ -93,6 +111,19 @@ Within a tier, members are sorted by their committee's position in
 `ROLE_ORDER` at the top of `tools/build-board-photos.py`, then
 alphabetically within the committee. Moving a committee in that list moves
 everyone on it, in every season. Re-run the script after editing.
+
+## Showing or hiding interns
+
+`board.js` has a switch near the top:
+
+```js
+var SHOW_INTERNS = false;
+```
+
+With it off, interns are left out of the roster entirely. Turn it on and they
+appear in the main grid alongside the chairs, sorted to the end. Their photos
+stay in `photos/board/<season>/` either way, so flipping this costs nothing
+and needs no rebuild.
 
 ## Which roles count as directors
 
