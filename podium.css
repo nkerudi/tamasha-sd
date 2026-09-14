@@ -54,8 +54,8 @@
 .spotlight { max-width: 700px; margin: 0 auto 56px; }
 .spotlight-heading {
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.7rem;
+  font-weight: 700;
   margin: 0 0 10px;
 }
 .spotlight-tagline {
@@ -70,7 +70,7 @@
 .panel-meta { margin-bottom: 18px; }
 
 /* ---------- Season timeline (horizontally scrollable) ---------- */
-.timeline-heading { text-align: center; font-size: 1.3rem; font-weight: 500; margin: 0 0 20px; }
+.timeline-heading { text-align: center; font-size: 1.5rem; font-weight: 700; margin: 0 0 20px; }
 
 .timeline-scroller {
   display: flex;
@@ -125,8 +125,8 @@
 .year-label {
   margin: 0 0 14px;
   color: var(--text);
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
   text-align: left;
 }
@@ -248,7 +248,7 @@
   font-weight: 600;
 }
 .team-modal-card .section-tag { margin-bottom: 9px; }
-.team-modal-card h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); font-weight: 400; }
+.team-modal-card h2 { font-size: clamp(2rem, 6.5vw, 2.8rem); font-weight: 700; }
 .team-modal-competition { margin: 9px 0 28px; color: var(--text-mute); }
 .team-medal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .team-medal-stat {

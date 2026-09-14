@@ -113,8 +113,8 @@
   margin-bottom: 26px;
 }
 .tier-head h2 {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.7rem;
+  font-weight: 700;
   letter-spacing: 0.01em;
   white-space: nowrap;
 }
@@ -214,7 +214,7 @@
   background: rgba(46, 38, 36, 0.02);
   color: var(--text-dim);
 }
-.season-empty h2 { font-size: 1.4rem; font-weight: 500; margin-bottom: 10px; }
+.season-empty h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
 .season-empty code {
   color: var(--violet);
   background: rgba(46, 38, 36, 0.05);
