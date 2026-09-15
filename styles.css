@@ -687,6 +687,31 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.
 }
 .field textarea { resize: vertical; min-height: 130px; }
 
+.form-submit { justify-content: center; }
+.form-submit:disabled { cursor: wait; opacity: 0.65; transform: none; }
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.form-status {
+  margin: 0;
+  padding: 13px 16px;
+  border: 1px solid rgba(94, 184, 140, 0.35);
+  border-radius: var(--radius-sm);
+  background: rgba(94, 184, 140, 0.10);
+  color: var(--text);
+  font-size: 0.92rem;
+}
+.form-status.is-error {
+  border-color: rgba(225, 92, 92, 0.38);
+  background: rgba(225, 92, 92, 0.10);
+}
+
 /* ---------- Placeholder note ---------- */
 .note {
   display: flex;

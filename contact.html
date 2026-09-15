@@ -73,35 +73,35 @@
 
       <!-- Form column -->
       <div>
-        <div class="note">
-          <span>ⓘ</span>
-          <span><strong>Setup needed.</strong> This form needs a form-handling endpoint (e.g. Formspree, Getform, or a backend) before it can send. Replace the <code>action</code> URL below.</span>
-        </div>
-
-        <form class="form" action="https://formspree.io/f/your-form-id" method="POST">
+        <form class="form" id="contact-form">
           <div class="field">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required />
+            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" maxlength="100" required />
           </div>
           <div class="field">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required />
           </div>
           <div class="field">
             <label for="topic">I'm reaching out about</label>
-            <select id="topic" name="topic">
-              <option>Competing / Team inquiry</option>
-              <option>Sponsorship</option>
-              <option>Tickets</option>
-              <option>Press / Media</option>
-              <option>Something else</option>
+            <select id="topic" name="topic" required>
+              <option value="competing">Competing / Team inquiry</option>
+              <option value="sponsorship">Sponsorship</option>
+              <option value="tickets">Tickets</option>
+              <option value="press">Press / Media</option>
+              <option value="other">Something else</option>
             </select>
           </div>
           <div class="field">
             <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Tell us more…" required></textarea>
+            <textarea id="message" name="message" placeholder="Tell us more…" maxlength="5000" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" style="justify-content: center;">Send Message →</button>
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">Send Message →</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
         </form>
       </div>
     </div>
@@ -146,5 +146,6 @@
   </footer>
 
   <script src="nav.js"></script>
+  <script src="contact.js"></script>
 </body>
 </html>
