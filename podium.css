@@ -7,11 +7,11 @@
   height: 2px;
   margin: 30px auto 0;
   background: var(--grad-hot);
-  box-shadow: 0 0 18px rgba(184, 101, 127, 0.4);
+  box-shadow: 0 0 18px rgba(153, 82, 53, 0.4);
 }
 
 .tab-bar { margin-bottom: 28px; }
-.tabs { padding: 9px; box-shadow: 0 16px 40px -28px rgba(184, 101, 127, 0.4); }
+.tabs { padding: 9px; box-shadow: 0 16px 40px -28px rgba(153, 82, 53, 0.4); }
 .tab { min-width: 190px; padding: 17px 38px; font-size: 1.12rem; }
 .archive-hint {
   margin: 13px 0 0;
@@ -20,42 +20,13 @@
   letter-spacing: 0.04em;
 }
 
-.archive-summary {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  max-width: 380px;
-  margin: 0 auto 48px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--border);
-}
-.archive-stat { padding: 12px 10px; text-align: center; background: var(--surface); }
-.archive-stat strong {
-  display: block;
-  color: var(--text);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
-  line-height: 1.2;
-}
-.archive-stat span {
-  display: block;
-  margin-top: 3px;
-  color: var(--text-mute);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 /* ---------- Spotlight (title + tagline + recent photo carousel) ---------- */
 .spotlight { max-width: 700px; margin: 0 auto 56px; }
 .spotlight-heading {
   text-align: center;
-  font-size: 1.7rem;
-  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
   margin: 0 0 10px;
 }
 .spotlight-tagline {
@@ -186,7 +157,7 @@
   border-color: transparent;
   background: var(--grad-hot);
 }
-.place.is-match { background: rgba(184, 101, 127, 0.06); box-shadow: none; }
+.place.is-match { background: rgba(153, 82, 53, 0.06); box-shadow: none; }
 .tab-panel.has-selection .place:not(.is-match) { opacity: 0.3; }
 .place { transition: opacity 0.25s, background 0.25s; }
 
@@ -211,7 +182,7 @@
   border: 1px solid var(--border-strong);
   border-radius: 26px;
   background:
-    radial-gradient(80% 55% at 50% 0%, rgba(184, 101, 127, 0.10), transparent),
+    radial-gradient(80% 55% at 50% 0%, rgba(153, 82, 53, 0.10), transparent),
     var(--surface);
   box-shadow: 0 35px 90px -30px rgba(46, 38, 36, 0.35);
   animation: team-modal-in 0.24s ease-out;
@@ -242,7 +213,7 @@
   border-radius: 50%;
   color: #fff;
   background: var(--grad-hot);
-  box-shadow: 0 15px 30px -15px rgba(184, 101, 127, 0.55);
+  box-shadow: 0 15px 30px -15px rgba(153, 82, 53, 0.55);
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
@@ -269,7 +240,7 @@
   text-transform: uppercase;
 }
 .gold-stat strong { color: var(--magenta); }
-.silver-stat strong { color: #7d8291; }
+.silver-stat strong { color: #8f8d7c; }
 .bronze-stat strong { color: #b8703f; }
 .team-modal-total { margin: 22px 0 0; color: var(--text-dim); font-size: 0.9rem; }
 

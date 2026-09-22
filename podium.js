@@ -62,15 +62,12 @@
   });
 
   panels.forEach(function (panel) {
-    var blocks = panel.querySelectorAll('.year-block');
     var places = panel.querySelectorAll('.place');
-    var teamSet = {};
 
     places.forEach(function (place) {
       var team = place.querySelector('.team');
       var name = team.textContent.trim();
       place.dataset.team = key(name);
-      teamSet[place.dataset.team] = true;
       place.tabIndex = 0;
       place.setAttribute('role', 'button');
       place.setAttribute('aria-label', 'Highlight all podium finishes for ' + name);
@@ -98,24 +95,6 @@
       });
     });
 
-    var years = Array.prototype.slice.call(blocks).map(function (block) {
-      return Number(block.querySelector('.year-label').textContent.trim());
-    });
-    var yearsRunning = years.length ? (Math.max.apply(null, years) - Math.min.apply(null, years) + 1) : 0;
-    var totalTeams = Object.keys(teamSet).length;
-
-    var yearsRunningEl = panel.querySelector('[data-years-running]');
-    if (yearsRunningEl) yearsRunningEl.textContent = yearsRunning;
-
-    var summary = document.createElement('div');
-    summary.className = 'archive-summary';
-    summary.innerHTML =
-      '<div class="archive-stat"><strong>' + totalTeams + '</strong><span>Total teams competed</span></div>' +
-      '<div class="archive-stat"><strong>' + yearsRunning + '</strong><span>Years running</span></div>';
-    // Always keep the metrics band directly under the panel's meta line,
-    // no matter what other static content (e.g. the spotlight) sits after it.
-    var meta = panel.querySelector('.panel-meta');
-    meta.parentNode.insertBefore(summary, meta.nextSibling);
   });
 
   // ---------------------------------------------------------
