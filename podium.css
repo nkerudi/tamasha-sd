@@ -7,11 +7,11 @@
   height: 2px;
   margin: 30px auto 0;
   background: var(--grad-hot);
-  box-shadow: 0 0 18px rgba(153, 82, 53, 0.4);
+  box-shadow: 0 0 18px rgba(39, 93, 32, 0.4);
 }
 
 .tab-bar { margin-bottom: 28px; }
-.tabs { padding: 9px; box-shadow: 0 16px 40px -28px rgba(153, 82, 53, 0.4); }
+.tabs { padding: 9px; box-shadow: 0 16px 40px -28px rgba(39, 93, 32, 0.4); }
 .tab { min-width: 190px; padding: 17px 38px; font-size: 1.12rem; }
 .archive-hint {
   margin: 13px 0 0;
@@ -157,7 +157,7 @@
   border-color: transparent;
   background: var(--grad-hot);
 }
-.place.is-match { background: rgba(153, 82, 53, 0.06); box-shadow: none; }
+.place.is-match { background: rgba(39, 93, 32, 0.06); box-shadow: none; }
 .tab-panel.has-selection .place:not(.is-match) { opacity: 0.3; }
 .place { transition: opacity 0.25s, background 0.25s; }
 
@@ -182,7 +182,7 @@
   border: 1px solid var(--border-strong);
   border-radius: 26px;
   background:
-    radial-gradient(80% 55% at 50% 0%, rgba(153, 82, 53, 0.10), transparent),
+    radial-gradient(80% 55% at 50% 0%, rgba(39, 93, 32, 0.10), transparent),
     var(--surface);
   box-shadow: 0 35px 90px -30px rgba(46, 38, 36, 0.35);
   animation: team-modal-in 0.24s ease-out;
@@ -213,7 +213,7 @@
   border-radius: 50%;
   color: #fff;
   background: var(--grad-hot);
-  box-shadow: 0 15px 30px -15px rgba(153, 82, 53, 0.55);
+  box-shadow: 0 15px 30px -15px rgba(39, 93, 32, 0.55);
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;

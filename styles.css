@@ -10,7 +10,7 @@
   --surface:       #ffffff;
   --surface-2:     #f7f3e6;
   --border:        rgba(43, 41, 30, 0.10);
-  --border-strong: rgba(153, 82, 53, 0.35);
+  --border-strong: rgba(39, 93, 32, 0.35);
 
   /* Text — warm charcoal, never pure black */
   --text:      #2b2a22;
@@ -18,7 +18,7 @@
   --text-mute: #948f7c;
 
   /* Brand accents — olive / khaki / terracotta / brick / mauve */
-  --magenta: #995235;  /* brick — primary accent */
+  --magenta: #275d20;  /* dark green — primary accent */
   --saffron: #8c4e51;  /* deep wine — secondary accent */
   --cyan:    #d6ce93;  /* pale khaki gold — tertiary accent */
   --violet:  #636351;  /* deep olive — quaternary accent */
@@ -33,7 +33,7 @@
   --radius: 18px;
   --radius-sm: 12px;
   --shadow: 0 20px 45px -24px rgba(43, 41, 30, 0.16);
-  --shadow-glow: 0 0 0 1px var(--border), 0 20px 40px -22px rgba(153, 82, 53, 0.22);
+  --shadow-glow: 0 0 0 1px var(--border), 0 20px 40px -22px rgba(39, 93, 32, 0.22);
 
   --font-display: 'Anton SC', 'Anton', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -62,7 +62,7 @@ body::before {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(60% 50% at 80% -5%, rgba(153, 82, 53, 0.07), transparent 60%),
+    radial-gradient(60% 50% at 80% -5%, rgba(39, 93, 32, 0.07), transparent 60%),
     radial-gradient(50% 45% at 5% 10%, rgba(99, 99, 81, 0.06), transparent 60%),
     radial-gradient(40% 40% at 50% 110%, rgba(140, 78, 81, 0.05), transparent 60%);
   pointer-events: none;
@@ -110,7 +110,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 .brand .dot {
   width: 12px; height: 12px; border-radius: 50%;
   background: var(--grad-hot);
-  box-shadow: 0 0 14px rgba(153, 82, 53, 0.5);
+  box-shadow: 0 0 14px rgba(39, 93, 32, 0.5);
 }
 .brand .sd { color: var(--magenta); }
 
@@ -135,7 +135,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 .nav-links a.active {
   color: #fff;
   background: var(--grad-hot);
-  box-shadow: 0 6px 18px -6px rgba(153, 82, 53, 0.45);
+  box-shadow: 0 6px 18px -6px rgba(39, 93, 32, 0.5);
 }
 
 .nav-toggle {
@@ -169,7 +169,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 .btn-primary {
   background: var(--grad-hot);
   color: #fff;
-  box-shadow: 0 12px 26px -10px rgba(153, 82, 53, 0.45);
+  box-shadow: 0 12px 26px -10px rgba(39, 93, 32, 0.5);
 }
 .btn-ghost {
   background: rgba(46, 38, 36, 0.035);
@@ -404,7 +404,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   letter-spacing: 0.1em;
   padding: 4px 12px;
   border-radius: 999px;
-  background: rgba(153, 82, 53, 0.12);
+  background:rgba(39, 93, 32, 0.5);
   color: var(--magenta);
   margin-bottom: 12px;
 }
@@ -420,7 +420,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   padding: 64px 40px;
   text-align: center;
   background:
-    radial-gradient(60% 120% at 50% 0%, rgba(153, 82, 53, 0.12), transparent),
+    radial-gradient(60% 120% at 50% 0%, rgba(39, 93, 32, 0.5), transparent),
     var(--surface);
   border: 1px solid var(--border-strong);
 }
@@ -504,7 +504,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 .tab.active {
   color: #fff;
   background: var(--grad-hot);
-  box-shadow: 0 6px 18px -6px rgba(153, 82, 53, 0.4);
+  box-shadow: 0 6px 18px -6px rgba(39, 93, 32, 0.5);
 }
 .tab-panel[hidden] { display: none; }
 .panel-meta {
@@ -554,9 +554,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   height: 4px;
 }
 .place.gold {
-  border-color: rgba(153, 82, 53, 0.35);
+  border-color: rgba(39, 93, 32, 0.35);
   background:
-    radial-gradient(120% 90% at 50% -20%, rgba(153, 82, 53, 0.10), transparent 60%),
+    radial-gradient(120% 90% at 50% -20%, rgba(39, 93, 32, 0.10), transparent 60%),
     var(--surface);
 }
 .place.gold::before   { background: #baac49; }
@@ -603,7 +603,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   padding: 8px 16px;
   border-radius: 999px;
   color: var(--magenta);
-  background: rgba(153, 82, 53, 0.10);
+  background: rgba(39, 93, 32, 0.10);
   border: 1px solid var(--border-strong);
 }
 .table-wrap { overflow-x: auto; }
@@ -719,7 +719,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 .field input:focus, .field textarea:focus, .field select:focus {
   outline: none;
   border-color: var(--magenta);
-  box-shadow: 0 0 0 3px rgba(153, 82, 53, 0.16);
+  box-shadow: 0 0 0 3px rgba(39, 93, 32, 0.5);
 }
 .field textarea { resize: vertical; min-height: 130px; }
 
