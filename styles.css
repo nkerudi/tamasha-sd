@@ -246,7 +246,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   max-width: 640px;
   margin: 0 auto 36px;
   font-size: clamp(1.05rem, 2.4vw, 1.3rem);
-  font-weight: 300;
+  font-weight: 700;
   color: var(--text-dim);
 }
 
