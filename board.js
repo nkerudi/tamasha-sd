@@ -28,7 +28,8 @@
     {
       title: 'Directors',
       test: function (m) {
-        return /^(director|executive-advisor|vp-)/.test(m.roleSlug);
+        return m.section !== 'committee' &&
+          /^(director|executive-advisor|vp-)/.test(m.roleSlug);
       }
     },
     {
@@ -299,6 +300,10 @@
     TIERS.forEach(function (tier) {
       var picked = remaining.filter(tier.test);
       remaining = remaining.filter(function (m) { return picked.indexOf(m) === -1; });
+      if (tier.title === TEAM_HEADING) {
+        picked = picked.filter(function (m) { return m.section !== 'committee'; })
+          .concat(picked.filter(function (m) { return m.section === 'committee'; }));
+      }
       if (picked.length) order.push({ tier: tier, members: picked });
     });
     if (remaining.length) order.push({ tier: { title: 'Board' }, members: remaining });

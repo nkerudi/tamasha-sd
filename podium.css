@@ -35,7 +35,7 @@
   font-size: 0.98rem;
   margin: 0 0 24px;
 }
-.spotlight-tagline strong { color: var(--magenta); font-family: var(--font-display); }
+.spotlight-tagline strong { color: var(--green); font-family: var(--font-display); }
 
 .tab-panel { max-width: none; margin: 0; }
 .panel-meta { margin-bottom: 18px; }
@@ -203,7 +203,7 @@
   cursor: pointer;
 }
 .team-modal-close:hover { color: var(--text); border-color: var(--border-strong); }
-.team-modal-close:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+.team-modal-close:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 .team-modal-mark {
   width: 68px;
   height: 68px;
@@ -239,7 +239,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.gold-stat strong { color: var(--magenta); }
+.gold-stat strong { color: var(--green); }
 .silver-stat strong { color: #8f8d7c; }
 .bronze-stat strong { color: #b8703f; }
 .team-modal-total { margin: 22px 0 0; color: var(--text-dim); font-size: 0.9rem; }

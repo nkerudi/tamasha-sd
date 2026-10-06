@@ -17,16 +17,16 @@
   --text-dim:  #6b6a58;
   --text-mute: #948f7c;
 
-  /* Brand accents — olive / khaki / terracotta / brick / mauve */
-  --magenta: #275d20;  /* dark green — primary accent */
-  --saffron: #8c4e51;  /* deep wine — secondary accent */
-  --cyan:    #d6ce93;  /* pale khaki gold — tertiary accent */
-  --violet:  #636351;  /* deep olive — quaternary accent */
+  /* Brand accents — a consistent green palette with a khaki highlight */
+  --green:      #275d20;
+  --green-mid:  #4d7144;
+  --green-soft: #d8e6cf;
+  --cyan:       #d6ce93;
 
   /* Flat fills (previously gradients) */
-  --grad-hot:  var(--magenta);
-  --grad-cool: var(--violet);
-  --grad-full: var(--magenta);
+  --grad-hot:  var(--green);
+  --grad-cool: var(--green-mid);
+  --grad-full: var(--green);
 
   /* Layout */
   --maxw: 1160px;
@@ -64,7 +64,7 @@ body::before {
   background:
     radial-gradient(60% 50% at 80% -5%, rgba(39, 93, 32, 0.07), transparent 60%),
     radial-gradient(50% 45% at 5% 10%, rgba(99, 99, 81, 0.06), transparent 60%),
-    radial-gradient(40% 40% at 50% 110%, rgba(140, 78, 81, 0.05), transparent 60%);
+    radial-gradient(40% 40% at 50% 110%, rgba(77, 113, 68, 0.05), transparent 60%);
   pointer-events: none;
 }
 
@@ -112,7 +112,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   background: var(--grad-hot);
   box-shadow: 0 0 14px rgba(39, 93, 32, 0.5);
 }
-.brand .sd { color: var(--magenta); }
+.brand .sd { color: var(--green); }
 
 .nav-links {
   display: flex;
@@ -314,7 +314,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--magenta);
+  color: var(--green);
   margin-bottom: 14px;
 }
 .section-head h2 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 700; margin-bottom: 16px; }
@@ -431,12 +431,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   padding: 4px 12px;
   border-radius: 999px;
   background:rgba(39, 93, 32, 0.5);
-  color: var(--magenta);
+  color: var(--green);
   margin-bottom: 12px;
 }
 .card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
 .card p { color: var(--text-dim); font-size: 0.96rem; margin: 0 0 16px; }
-.card-link { font-weight: 600; color: var(--violet); display: inline-flex; gap: 6px; align-items: center; }
+.card-link { font-weight: 600; color: var(--green-mid); display: inline-flex; gap: 6px; align-items: center; }
 .card-link:hover { gap: 10px; }
 
 /* ---------- CTA band ---------- */
@@ -539,7 +539,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   letter-spacing: 0.14em;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--magenta);
+  color: var(--green);
   margin: 0 0 32px;
 }
 
@@ -598,15 +598,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   color: var(--text-mute);
   margin-bottom: 8px;
 }
-.place.gold .rank { color: var(--magenta); }
+.place.gold .rank { color: var(--green); }
 .place .team { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; line-height: 1.15; }
 .place .school {
   margin-top: 8px;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.03em;
-  color: var(--saffron);
-  background: rgba(140, 78, 81, 0.14);
+  color: var(--green-mid);
+  background: rgba(77, 113, 68, 0.14);
   padding: 3px 12px;
   border-radius: 999px;
 }
@@ -628,7 +628,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   letter-spacing: 0.06em;
   padding: 8px 16px;
   border-radius: 999px;
-  color: var(--magenta);
+  color: var(--green);
   background: rgba(39, 93, 32, 0.10);
   border: 1px solid var(--border-strong);
 }
@@ -639,8 +639,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--saffron);
-  background: rgba(140, 78, 81, 0.16);
+  color: var(--green-mid);
+  background: rgba(77, 113, 68, 0.16);
   padding: 2px 8px;
   border-radius: 999px;
   margin-left: 6px;
@@ -692,9 +692,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 }
 .info-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
 .info-card p, .info-card a { color: var(--text-dim); margin: 0; font-size: 0.98rem; }
-.info-card a:hover { color: var(--violet); }
+.info-card a:hover { color: var(--green-mid); }
 .info-links { display: grid; gap: 5px; }
-.info-links a:last-child { color: var(--violet); font-weight: 600; }
+.info-links .resource-link { color: var(--green-mid); font-weight: 600; }
+.instagram-links a { color: var(--green-mid); font-weight: 600; }
 
 .sponsorship-packet {
   margin-top: 72px;
@@ -726,7 +727,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 }
 .canva-embed iframe { width: 100%; height: 100%; border: 0; }
 .embed-fallback { margin: 16px 0 0; color: var(--text-mute); font-size: 0.88rem; text-align: center; }
-.embed-fallback a { color: var(--violet); }
+.embed-fallback a { color: var(--green-mid); }
 
 .form { display: grid; gap: 18px; padding: 32px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); }
 .field { display: grid; gap: 8px; }
@@ -744,7 +745,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 }
 .field input:focus, .field textarea:focus, .field select:focus {
   outline: none;
-  border-color: var(--magenta);
+  border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(39, 93, 32, 0.5);
 }
 .field textarea { resize: vertical; min-height: 130px; }
@@ -786,7 +787,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   font-size: 0.92rem;
   margin-bottom: 32px;
 }
-.note strong { color: var(--violet); }
+.note strong { color: var(--green-mid); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {

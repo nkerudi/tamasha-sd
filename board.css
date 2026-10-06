@@ -80,7 +80,7 @@
   font-size: 1.05rem;
   letter-spacing: 0.02em;
 }
-.group-caption span { color: #eec3d2; }
+.group-caption span { color: var(--green-soft); }
 
 .group-picker {
   position: absolute;
@@ -175,7 +175,7 @@
 }
 .member:focus { outline: none; }
 .member:focus-visible .member-frame {
-  outline: 2px solid var(--magenta);
+  outline: 2px solid var(--green);
   outline-offset: 3px;
 }
 .member-name {
@@ -193,7 +193,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--saffron);
+  color: var(--green-mid);
 }
 
 /* Scroll-in reveal. The hidden state is only applied once JS has taken
@@ -216,7 +216,7 @@
 }
 .season-empty h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
 .season-empty code {
-  color: var(--violet);
+  color: var(--green-mid);
   background: rgba(46, 38, 36, 0.05);
   padding: 2px 8px;
   border-radius: 6px;
@@ -275,7 +275,7 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #eec3d2;
+  color: var(--green-soft);
 }
 .lightbox-meta .lb-count {
   margin-top: 10px;
@@ -298,7 +298,7 @@
   transition: background 0.2s, transform 0.2s, color 0.2s;
 }
 .lb-btn:hover { background: var(--grad-hot); color: #fff; transform: scale(1.06); }
-.lb-btn:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+.lb-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 .lb-prev { left: 20px; top: 50%; margin-top: -24px; }
 .lb-next { right: 20px; top: 50%; margin-top: -24px; }
 .lb-close { right: 20px; top: 20px; }

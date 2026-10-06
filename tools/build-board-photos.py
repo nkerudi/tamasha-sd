@@ -96,6 +96,11 @@ ROLE_LABELS = {
     "executive-advisor": "Executive Advisor",
 }
 
+# Individual display-section exceptions that should survive data regeneration.
+SECTION_OVERRIDES = {
+    ("24-25", "jiya-patel"): "committee",
+}
+
 # Small-word handling for auto-titlecasing names and roles.
 LOWER_WORDS = {"and", "of", "the"}
 
@@ -342,13 +347,17 @@ def build_year(year_dir: Path, force: bool):
 
         print(f"  member {name_slug:<26} {role_label(role_slug):<24} [{note}]")
 
-        members.append({
+        member = {
             "name": titlecase(name_slug),
             "role": role_label(role_slug),
             "roleSlug": role_slug,
             "card": f"photos/board/{year}/web/{card.name}",
             "full": f"photos/board/{year}/web/{full.name}",
-        })
+        }
+        section = SECTION_OVERRIDES.get((year, name_slug))
+        if section:
+            member["section"] = section
+        members.append(member)
 
     members.sort(key=lambda m: (role_rank(m["roleSlug"]), m["name"]))
     groups.sort()

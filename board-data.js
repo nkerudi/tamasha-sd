@@ -234,6 +234,7 @@ window.TAMASHA_BOARD = [
         "name": "Jiya Patel",
         "role": "Executive Advisor",
         "roleSlug": "executive-advisor",
+        "section": "committee",
         "card": "photos/board/24-25/web/jiya-patel-card.webp",
         "full": "photos/board/24-25/web/jiya-patel-full.webp"
       },
