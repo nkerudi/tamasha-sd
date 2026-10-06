@@ -216,6 +216,32 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   font-weight: 700;
   margin-bottom: 24px;
 }
+.hero-title {
+  min-height: 1.2em;
+}
+.hero-title-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+.typewriter-cursor {
+  display: inline-block;
+  width: 0.055em;
+  height: 0.82em;
+  margin-left: 0.06em;
+  border-radius: 999px;
+  background: currentColor;
+  vertical-align: -0.02em;
+  animation: typewriter-blink 0.7s steps(1, end) infinite;
+}
+.typewriter-cursor.is-finished {
+  visibility: hidden;
+  animation: none;
+}
+@keyframes typewriter-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-cursor { display: none; }
+}
 .hero .lead {
   max-width: 640px;
   margin: 0 auto 36px;
