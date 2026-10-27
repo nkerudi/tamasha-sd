@@ -187,7 +187,55 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   justify-content: center;
   padding: 120px 0 80px;
   text-align: center;
+  overflow: hidden;
 }
+/* Keep the title and buttons above the collage and its scrim. */
+.hero > .container,
+.hero > .scroll-cue { position: relative; z-index: 1; }
+
+/* ---------- Hero photo collage ----------
+   Competition photos scattered behind the title. The scrim below keeps the
+   middle of the hero clear so the heading stays readable over any photo. */
+.hero-collage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-collage .hc {
+  position: absolute;
+  width: var(--w);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -22px rgba(43, 41, 30, 0.45);
+  opacity: 0.78;
+  transform: rotate(var(--r));
+}
+/* The clear centre. Opaque background in the middle, transparent at the
+   corners, so the photos read as a border of imagery around the title. */
+.hero-collage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 46% 42% at 50% 48%,
+      var(--bg) 0%,
+      var(--bg) 46%,
+      rgba(255, 253, 248, 0.86) 68%,
+      rgba(255, 253, 248, 0.45) 88%,
+      rgba(255, 253, 248, 0.2) 100%);
+}
+
+.hc-1 { --w: 15vw; --r: -7deg; left:  1.5%; top:  9%; }
+.hc-2 { --w: 13vw; --r:  6deg; left: 17%;   top: -3%; }
+.hc-3 { --w: 14vw; --r:  5deg; right: 2%;   top:  6%; }
+.hc-4 { --w: 12vw; --r: -5deg; right:18%;   top: -4%; }
+.hc-5 { --w: 14vw; --r:  7deg; left: -2%;   bottom: 10%; }
+.hc-6 { --w: 12vw; --r: -6deg; left: 16%;   bottom: -5%; }
+.hc-7 { --w: 15vw; --r: -6deg; right:-1.5%; bottom: 8%; }
+.hc-8 { --w: 12vw; --r:  6deg; right:17%;   bottom: -6%; }
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -212,7 +260,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
 .hero h1 {
-  font-size: clamp(3.8rem, 13vw, 9.5rem);
+  /* Floor is 2.4rem, not 3.8rem: the title is set to nowrap for the
+     typewriter, so a larger floor pushed "SD" off the side of a phone. */
+  font-size: clamp(2.4rem, 13vw, 9.5rem);
   font-weight: 700;
   margin-bottom: 24px;
 }
@@ -292,7 +342,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 }
 .stat .num {
   font-family: var(--font-display);
-  font-size: 2.6rem;
+  font-size: clamp(2.8rem, 5vw, 3.6rem);
   font-weight: 600;
   line-height: 1;
 }
@@ -317,8 +367,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   color: var(--green);
   margin-bottom: 14px;
 }
-.section-head h2 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 700; margin-bottom: 16px; }
-.section-head p { color: var(--text-dim); font-size: 1.08rem; margin: 0; }
+/* One size for every section heading. #about and .cta h2 sat outside
+   .section-head and were falling back to the browser's 1.5em default, which
+   is why "About Us" read much smaller than "Tamasha" and "Sanedo". */
+.section-head h2,
+#about h2,
+.cta h2 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 700; margin-bottom: 16px; }
+.section-head p { color: var(--text-dim); font-size: 1.15rem; margin: 0; }
 
 /* ---------- About split ---------- */
 .split {
@@ -327,7 +382,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   gap: 56px;
   align-items: center;
 }
-.split p { color: var(--text-dim); font-size: 1.05rem; }
+.split p { color: var(--text-dim); font-size: 1.15rem; line-height: 1.7; }
 .split .media {
   border-radius: var(--radius);
   overflow: hidden;
@@ -368,7 +423,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 
 .showcase-rotator {
   position: relative;
-  aspect-ratio: 4 / 3;
+  /* Square, not 4:3. The blurb beside it runs ~550px tall, so a 4:3 photo
+     left ~160px of dead space underneath. A square very nearly matches the
+     text height. The source photos are 4:3, so object-fit trims the sides;
+     to avoid that double crop, set ROTATE_W/ROTATE_H to 1100x1100 in
+     tools/build-showcase-photos.py and re-run it against the raw photos. */
+  aspect-ratio: 1 / 1;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -385,19 +445,31 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 }
 .showcase-rotator img.is-active { opacity: 1; }
 
-.showcase-blurb .section-tag { margin-bottom: 10px; }
-.showcase-blurb h2 { font-size: clamp(2.8rem, 7.5vw, 4.6rem); font-weight: 700; margin-bottom: 18px; }
-.showcase-blurb p { color: var(--text-dim); font-size: 1.05rem; margin-bottom: 28px; }
+/* The competition name spans the full panel width, above the photo/text row.
+   Keeping it out of the text column is what stops the column from towering
+   over the 4:3 photo beside it. */
+.showcase-head { margin-bottom: 30px; }
+.showcase-head .section-tag { margin-bottom: 10px; }
+.showcase-head h2 { font-size: clamp(2.8rem, 7.5vw, 4.6rem); font-weight: 700; margin: 0; }
+.showcase-blurb p { color: var(--text-dim); font-size: 1.15rem; line-height: 1.7; margin-bottom: 24px; }
 
 .showcase-static {
+  /* Equal columns for however many photos the panel has — Tamasha has four,
+     Sanedo three. */
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 16px;
   margin-top: 32px;
+  /* One band height for every strip, whatever the photo count. Without this
+     Sanedo's three cells are wider than Tamasha's four, and at a fixed 4:3
+     that made its row ~70px taller. The formula is the height four 4:3
+     photos would occupy, so the Tamasha strip is unchanged. */
+  height: min(calc(18.75vw - 18px), 199px);
 }
 .showcase-static img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
@@ -796,7 +868,35 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
   .grid-3 { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .showcase-top { grid-template-columns: 1fr; gap: 32px; }
-  .showcase-static { grid-template-columns: repeat(2, 1fr); }
+  /* Back to rows of two once the panel stacks — four across a narrow screen
+     makes the thumbnails unreadable. */
+  .showcase-static {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+    height: auto;           /* back to natural height once it wraps to rows */
+  }
+  .showcase-static img { aspect-ratio: 4 / 3; height: auto; }
+  /* An odd number of photos would leave the last cell of the two-column
+     grid empty, so the final photo spans the row instead. Applies to
+     Sanedo's three; Tamasha's four are unaffected. */
+  .showcase-static img:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+  /* One photo per corner, larger, so the collage still reads as photos. */
+  .hero-collage .hc { --w: 30vw; }
+  .hc-2, .hc-4, .hc-6, .hc-8 { display: none; }
+  .hc-1 { top: 6%; }
+  .hc-3 { top: 4%; }
+  .hc-5 { --w: 26vw; bottom: -7%; left: -4%; }
+  .hc-7 { --w: 26vw; bottom: -9%; right: -3%; }
+  .hero-collage::after {
+    background:
+      radial-gradient(ellipse 62% 40% at 50% 50%,
+        var(--bg) 0%, var(--bg) 52%,
+        rgba(255, 253, 248, 0.88) 74%,
+        rgba(255, 253, 248, 0.5) 100%);
+  }
 }
 
 @media (max-width: 720px) {

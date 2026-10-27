@@ -30,6 +30,19 @@
 
   <!-- ===== Hero ===== -->
   <section class="hero">
+    <!-- Competition photos behind the title. Decorative only, so they carry
+         no alt text and are hidden from screen readers. Swap the filenames to
+         change which shots appear; positions live in .hero-collage in styles.css. -->
+    <div class="hero-collage" aria-hidden="true">
+      <img class="hc hc-1" src="photos/tamasha_gallery/web/tamasha-rotate-2.webp" alt="" />
+      <img class="hc hc-2" src="photos/sanedo_gallery/web/sanedo-rotate-2.webp" alt="" />
+      <img class="hc hc-3" src="photos/tamasha_gallery/web/tamasha-rotate-5.webp" alt="" />
+      <img class="hc hc-4" src="photos/tamasha_gallery/web/tamasha-static-3.webp" alt="" />
+      <img class="hc hc-5" src="photos/sanedo_gallery/web/sanedo-rotate-3.webp" alt="" />
+      <img class="hc hc-6" src="photos/tamasha_gallery/web/tamasha-rotate-7.webp" alt="" />
+      <img class="hc hc-7" src="photos/tamasha_gallery/web/tamasha-static-1.webp" alt="" />
+      <img class="hc hc-8" src="photos/sanedo_gallery/web/sanedo-rotate-1.webp" alt="" />
+    </div>
     <div class="container">
       <div class="eyebrow"><span class="pulse"></span> San Diego · Since 2016</div>
       <h1 class="hero-title" aria-label="Tamasha SD">
@@ -89,6 +102,10 @@
   <section class="section" id="showcase">
     <div class="container">
       <div class="showcase-panel" data-panel="tamasha">
+        <div class="showcase-head">
+          <div class="section-tag">Bollywood-Fusion</div>
+          <h2 class="gradient-text">Tamasha</h2>
+        </div>
         <div class="showcase-top">
           <div class="showcase-rotator">
             <img class="is-active" src="photos/tamasha_gallery/web/tamasha-rotate-1.webp" alt="Tamasha competition photo 1" />
@@ -101,8 +118,6 @@
             <img src="photos/tamasha_gallery/web/tamasha-rotate-8.webp" alt="Tamasha competition photo 8" />
           </div>
           <div class="showcase-blurb">
-            <div class="section-tag">Bollywood-Fusion</div>
-            <h2 class="gradient-text">Tamasha</h2>
             <p>
               TamashaSD is UC San Diego's annual intercollegiate Bollywood-Fusion
               competition, bringing collegiate dance teams from across the country
@@ -130,6 +145,10 @@
       </div>
 
       <div class="showcase-panel" data-panel="sanedo">
+        <div class="showcase-head">
+          <div class="section-tag">Raas-Garba</div>
+          <h2 class="gradient-text">Sanedo</h2>
+        </div>
         <div class="showcase-top">
           <div class="showcase-rotator">
             <img class="is-active" src="photos/sanedo_gallery/web/sanedo-rotate-1.webp" alt="Sanedo competition photo 1" />
@@ -137,8 +156,6 @@
             <img src="photos/sanedo_gallery/web/sanedo-rotate-3.webp" alt="Sanedo competition photo 3" />
           </div>
           <div class="showcase-blurb">
-            <div class="section-tag">Raas-Garba</div>
-            <h2 class="gradient-text">Sanedo</h2>
             <p>
               SanedoSD is UC San Diego's annual intercollegiate Raas-Garba
               competition, bringing collegiate teams from across the country to San
@@ -156,6 +173,14 @@
             </p>
             <a class="btn btn-primary" href="placings.html#sanedo">View Placings and History →</a>
           </div>
+        </div>
+        <!-- Sanedo has only 9 raw photos, and the other six are reserved for
+             the year cards on placings.html, so this strip reuses rotate-4/5/6.
+             Swap these out once the club supplies more Sanedo photos. -->
+        <div class="showcase-static">
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-4.webp" alt="Sanedo competition photo" loading="lazy" />
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-5.webp" alt="Sanedo competition photo" loading="lazy" />
+          <img src="photos/sanedo_gallery/web/sanedo-rotate-6.webp" alt="Sanedo competition photo" loading="lazy" />
         </div>
       </div>
     </div>
