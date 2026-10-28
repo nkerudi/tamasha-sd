@@ -11,6 +11,36 @@
     return name.trim().toLowerCase().replace(/\s+/g, ' ');
   }
 
+  var teamLocations = {
+    "chicago adaa": "Chicago, IL",
+    "dirty south dandiya": "Austin, TX",
+    "illini raas": "Urbana-Champaign, IL",
+    "msu raasparty": "East Lansing, MI",
+    "northeastern nakhraas": "Boston, MA",
+    "ru sapa": "New Brunswick, NJ",
+    "rutgers sapa": "New Brunswick, NJ",
+    "sjsu sahaara": "San Jose, CA",
+    "texas mohini": "Austin, TX",
+    "texas raas": "Austin, TX",
+    "ucb azaad": "Berkeley, CA",
+    "ucb zahanat": "Berkeley, CA",
+    "ucd lashkara": "Davis, CA",
+    "uci zamana": "Irvine, CA",
+    "ucla nashaa": "Los Angeles, CA",
+    "ucr aag": "Riverside, CA",
+    "ucraas": "Riverside, CA",
+    "ucsc kahaani": "Santa Cruz, CA",
+    "uconn thunderaas": "Storrs, CT",
+    "umbc raascals": "Baltimore, MD",
+    "unc tar heel raas": "Chapel Hill, NC",
+    "usc zeher": "Los Angeles, CA",
+    "ut austin nach baliye": "Austin, TX",
+    "utd taraas": "Richardson, TX",
+    "uva hooraas": "Charlottesville, VA",
+    "uw kahaani": "Seattle, WA",
+    "washu raas": "St. Louis, MO"
+};
+
   function initials(name) {
     var words = name.trim().split(/\s+/);
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
@@ -26,7 +56,7 @@
       else if (other.classList.contains('bronze')) counts.bronze += 1;
     });
 
-    modalOpener = place;
+    modalOpener = place.querySelector('.youtube-link') ? place.querySelector('.team') : place;
     modal.querySelector('.team-modal-mark').textContent = initials(name);
     modal.querySelector('#team-modal-title').textContent = name;
     modal.querySelector('.team-modal-competition').textContent =
@@ -37,6 +67,14 @@
     var total = counts.gold + counts.silver + counts.bronze;
     modal.querySelector('.team-modal-total').textContent =
       total + (total === 1 ? ' podium finish in this competition' : ' podium finishes in this competition');
+    var location = modal.querySelector('.team-modal-location');
+    if (!location) {
+      location = document.createElement('p');
+      location.className = 'team-modal-location';
+      modal.querySelector('.team-modal-card').appendChild(location);
+    }
+    location.textContent = teamLocations[key(name)] || '';
+    location.hidden = !location.textContent;
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
     modalClose.focus();
@@ -68,9 +106,10 @@
       var team = place.querySelector('.team');
       var name = team.textContent.trim();
       place.dataset.team = key(name);
-      place.tabIndex = 0;
-      place.setAttribute('role', 'button');
-      place.setAttribute('aria-label', 'Highlight all podium finishes for ' + name);
+      var trigger = place.querySelector('.youtube-link') ? team : place;
+      trigger.tabIndex = 0;
+      trigger.setAttribute('role', 'button');
+      trigger.setAttribute('aria-label', 'Show podium history for ' + name);
 
       var mark = document.createElement('span');
       mark.className = 'team-mark';
@@ -86,8 +125,11 @@
         });
         openTeamModal(panel, place, name);
       }
-      place.addEventListener('click', select);
-      place.addEventListener('keydown', function (event) {
+      place.addEventListener('click', function (event) {
+        if (event.target.closest('a')) return;
+        select();
+      });
+      trigger.addEventListener('keydown', function (event) {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
           select();
@@ -95,6 +137,16 @@
       });
     });
 
+  });
+
+  document.addEventListener('click', function (event) {
+    if (event.target.closest('.place, .team-modal-card')) return;
+    panels.forEach(function (panel) {
+      panel.classList.remove('has-selection');
+      panel.querySelectorAll('.place.is-match').forEach(function (place) {
+        place.classList.remove('is-match');
+      });
+    });
   });
 
   // ---------------------------------------------------------
